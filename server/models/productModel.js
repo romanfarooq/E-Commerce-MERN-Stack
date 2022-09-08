@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
 
-const productSchema = new Schema({
+const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter product name"],
@@ -13,7 +12,7 @@ const productSchema = new Schema({
   price: {
     type: Number,
     required: [true, "please enter price"],
-    maxLength: [8, "price cannot exceed 8 characters"],
+    max: [8, "price cannot exceed 8 figures"],
   },
   rating: {
     type: Number,
