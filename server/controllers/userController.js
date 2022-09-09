@@ -1,10 +1,7 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import validator from "validator";
-
-const JWT_SECRET = process.env.JWT_SECRET_KEY;
-const JWT_EXPIRE = process.env.JWT_EXPIRE_TIME;
+import sendToken from "../utils/jwtToken.js";
 
 // Register User
 export const registerUser = async (req, res) => {
@@ -18,10 +15,8 @@ export const registerUser = async (req, res) => {
       password: hashPass,
       avatar: { public_id: "This is sample id", url: "Profile Pic Url" },
     });
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, {expiresIn: JWT_EXPIRE});
-    res.json({ success: true, token });
+    sendToken(user, 200, res);
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -52,10 +47,24 @@ export const loginUser = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Enter correct password" });
     }
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, {expiresIn: JWT_EXPIRE});
-    res.json({ success: true, token });
+    sendToken(user, 200, res);
   } catch (error) {
-    console.log(error.message);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Logout User
+export const logoutUser = (req, res) => {
+  try {
+    const options = {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    };
+    res
+      .status(200)
+      .cookie("token", null, options)
+      .json({ success: true, message: "Loged Out Succesfully" });
+  } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };
