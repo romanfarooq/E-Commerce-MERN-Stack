@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: [true, "please enter price"],
-    max: [8, "price cannot exceed 8 figures"],
+    max: [99999999, "price cannot exceed 8 figures"],
   },
   rating: {
     type: Number,
@@ -60,6 +60,11 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "user",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
