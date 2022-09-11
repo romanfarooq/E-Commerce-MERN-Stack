@@ -78,40 +78,23 @@ export const forgotPassword = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Please Enter a valid Email" });
     }
-    const user = User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res
         .status(401)
         .json({ success: false, message: "Enter correct email" });
     }
     const resetToken = getResetPasswordToken(user);
-    console.log(user.resetPasswordExpire);
-    console.log(user.resetPasswordToken);
-    // await user.save();
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-      "host"
-    )}/api/users/reset/${resetToken}`;
+    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/users/reset/${resetToken}`;
     const message = `Your password token is :-\n\n${resetPasswordUrl}\n\nIf you have not requested this email then please ignore it`;
-    try {
-      await sendEmail({
-        email: user.email,
-        subject: "E-Commerence Password Recovery",
-        message,
-      });
-      return res
-        .status(200)
-        .json({
-          success: true,
-          message: `Email sent to ${user.email} succesfully`,
-        });
-    } catch (error) {
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
-      // await user.save();
-      console.log(user.resetPasswordExpire);
-      console.log(user.resetPasswordToken);
-      res.status(500).json({ success: false, message: error.message });
-    }
+    sendEmail(
+      { email: user.email, subject: "E-Commerence Password Recovery", message },
+      user
+    );
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.email} succesfully`,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
