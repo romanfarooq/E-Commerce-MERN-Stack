@@ -8,7 +8,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: "Please Login to acces this resource",
+        message: "Please Login to access this resource",
       });
     }
     const decodedData = jwt.verify(token, jwtKey);
@@ -23,7 +23,7 @@ export const isAdmin = (req, res, next) => {
   if (req.user.role !== "admin") {
     return res.status(403).json({
       success: false,
-      message: `Role: ${req.user.role} is allowed to access this resourse`,
+      message: `Role ${req.user.role} is not allowed to access this resourse`,
     });
   }
   next();

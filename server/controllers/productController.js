@@ -54,7 +54,7 @@ export const getProductDetails = async (req, res) => {
 };
 
 // Update Product -- Admin
-export const updateProduct = async (req, res, next) => {
+export const updateProduct = async (req, res) => {
   try {
     let product = await Product.findById(req.params.id);
     if (!product) {
