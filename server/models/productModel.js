@@ -16,8 +16,6 @@ const productSchema = new mongoose.Schema({
   },
   ratings: {
     type: Number,
-    min: [0, "rating cannot be less than zero"],
-    max: [5, "rating cannot be less than five"],
     default: 0,
   },
   images: [
@@ -60,7 +58,7 @@ const productSchema = new mongoose.Schema({
       rating: {
         type: Number,
         min: [0, "rating cannot be less than zero"],
-        max: [5, "rating cannot be less than five"],
+        max: [5, "rating cannot be greater than five"],
         required: true,
       },
       comment: {
@@ -80,4 +78,4 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("product", productSchema);
+export default mongoose.model("Product", productSchema);

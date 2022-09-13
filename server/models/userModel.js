@@ -38,4 +38,4 @@ const userSchema = new mongoose.Schema({
   resetPasswordDate: Date,
 });
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model("User", userSchema);
