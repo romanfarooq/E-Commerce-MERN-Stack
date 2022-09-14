@@ -13,10 +13,10 @@ import { isAdmin, isAuthenticatedUser } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/create", isAuthenticatedUser, isAdmin, createProduct);
+router.post("/admin/create", isAuthenticatedUser, isAdmin, createProduct);
 router.get("/getAll", getAllProducts);
-router.put("/update/:id", isAuthenticatedUser, isAdmin, updateProduct);
-router.delete("/delete/:id", isAuthenticatedUser, isAdmin, deleteProduct);
+router.put("/admin/update/:id", isAuthenticatedUser, isAdmin, updateProduct);
+router.delete("/admin/delete/:id", isAuthenticatedUser, isAdmin, deleteProduct);
 router.get("/get/:id", getProductDetails);
 router.put("/review/create", isAuthenticatedUser, createProductReview);
 router.get("/review/getAll", getProductReviews);

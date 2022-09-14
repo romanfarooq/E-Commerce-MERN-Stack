@@ -37,6 +37,12 @@ export const getAllProducts = async (req, res) => {
       .limit(resultPerPage)
       .skip(skip);
 
+    if (!products) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Products Not Found" });
+    }
+
     res.status(200).json({ success: true, productCount, products });
 
   } catch (error) {
@@ -71,7 +77,7 @@ export const updateProduct = async (req, res) => {
 
     if (!product) {
       return res
-        .status(500)
+        .status(404)
         .json({ success: false, message: "Product Not Found" });
     }
     
@@ -95,7 +101,7 @@ export const deleteProduct = async (req, res) => {
 
     if (!product) {
       return res
-        .status(500)
+        .status(404)
         .json({ success: false, message: "Product Not Found" });
     }
 
@@ -121,7 +127,7 @@ export const createProductReview = async (req, res) => {
 
     if (!product) {
       return res
-        .status(500)
+        .status(404)
         .json({ success: false, message: "Product Not Found" });
     }
 
@@ -148,7 +154,7 @@ export const createProductReview = async (req, res) => {
     }
 
     let sum = 0;
-    product.reviews.forEach((rev) => (sum += rev.rating));
+    product.reviews.forEach(rev => sum += rev.rating);
 
     product.ratings = sum / product.reviews.length;
 

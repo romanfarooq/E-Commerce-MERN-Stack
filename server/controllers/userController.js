@@ -150,7 +150,7 @@ export const updatePassword = async (req, res) => {
 
     const { oldPassword, newPassword, confirmPassword } = req.body;
 
-    const user = await User.findById(req.user.id).select("+password");
+    const user = await User.findById(req.user._id).select("+password");
 
     const comparePass = await bcrypt.compare(oldPassword, user.password);
 
@@ -198,7 +198,7 @@ export const updateProfile = async (req, res) => {
 
     // I will add cloudinary later
 
-    await User.findByIdAndUpdate(req.user.id, newUserData, {
+    await User.findByIdAndUpdate(req.user._id, newUserData, {
       new: true,
       runValidators: true,
     });
@@ -217,6 +217,13 @@ export const getAllUsers = async (req, res) => {
   try {
 
     const users = await User.find();
+
+    if (!users) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No User Found" });
+    }
+
     res.status(200).json({ success: true, users });
 
   } catch (error) {
@@ -229,6 +236,13 @@ export const getUserDetailsAdmin = async (req, res) => {
   try {
 
     const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Enter Correct Id" });
+    }
+
     res.status(200).json({ success: true, user });
     
   } catch (error) {
@@ -243,7 +257,7 @@ export const updateUserRole = async (req, res) => {
     const newUserData = {
       name: req.body.name,
       email: req.body.email,
-      role: req.body.role,
+      role: req.body.role.toLowerCase(),
     };
 
     await User.findByIdAndUpdate(req.params.id, newUserData, {
@@ -264,13 +278,21 @@ export const updateUserRole = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
 
-    await User.findByIdAndRemove(req.params.id);
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Found" });
+    }
+
+    await user.remove();
 
     res
       .status(200)
       .json({ success: true, message: "User Deleted Succesfully" });
 
   } catch (error) {
-    res.status(500).json({ success: false, message: "User doesn't exists" });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
