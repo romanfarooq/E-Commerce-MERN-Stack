@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import WebFont from "webfontloader";
 import "./App.css";
 import Header from "./components/Layout/Header/Header";
+import Footer from "./components/Layout/Footer/Footer";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      <Footer />
     </BrowserRouter>
   );
 }
