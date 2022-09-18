@@ -1,21 +1,23 @@
 import { CgMouse } from "react-icons/cg";
-import ProductCard from "./ProductCard.js";
 import "./Home.css";
-
-const product = {
-  name: "Blue T-shirt",
-  images: [
-    {
-      url: "https://media.istockphoto.com/photos/blue-tshirt-clipping-path-picture-id465485415?b=1&k=20&m=465485415&s=170667a&w=0&h=VaD_NRgo9mK3E3_4AmGMT9kpUUrSOdLCKVs8W07IU2A=",
-    },
-  ],
-  price: "Rs3000",
-  _id: "romi",
-};
+import ProductCard from "./ProductCard";
+import MetaData from "../Layout/MetaData";
+import { getProducts } from "../../Actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Home() {
+  
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   return (
     <>
+      <MetaData title="ECOMMERCE" />
       <div className="banner">
         <p>Welocome to Ecommerce</p>
         <h1>FIND AMAZING PRODUCTS BELOW</h1>
@@ -27,15 +29,10 @@ function Home() {
       </div>
       <h1 className="homeHeading">Featured Products</h1>
       <div className="container" id="container">
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
+        {products &&
+          products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
       </div>
     </>
   );
