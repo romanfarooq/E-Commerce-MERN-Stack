@@ -6,32 +6,21 @@ import MetaData from "../Layout/MetaData";
 import Loader from "../Loader/Loader";
 import { getProducts } from "../../Actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useAlert } from "react-alert";
 
 function Home() {
+
+  const alert = useAlert();
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
 
   useEffect(() => {
-    const notify = () => {
-      toast.error(error, {
-        theme: "dark",
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    };
     if (error) {
-      notify();
+      alert.error(error);
     } else {
       dispatch(getProducts());
     }
-  }, [dispatch, error]);
+  }, [dispatch, error, alert]);
 
   return (
     <>
@@ -56,7 +45,6 @@ function Home() {
             ))}
         </div>
       )}
-      <ToastContainer />
     </>
   );
 }
