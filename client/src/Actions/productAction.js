@@ -16,6 +16,21 @@ export const getProducts = () => async (dispatch) => {
   }
 };
 
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "productDetailsRequest" });
+
+    const { data } = await axios.get(`${URL}/api/product/get/${id}`);
+
+    dispatch({ type: "productDetailsSuccess", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "productDetailsFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: "clearErrors" });
 };
