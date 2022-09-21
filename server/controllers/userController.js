@@ -136,9 +136,19 @@ export const forgotPassword = async (req, res) => {
 };
 
 // Get Your User Details
-export const getUserDetails = (req, res) => {
+export const getUserDetails = async (req, res) => {
   try {
-    res.status(200).json({ success: true, user: req.user });
+
+    const user = await User.findById(req.user._id)
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid User" });
+    }
+
+    res.status(200).json({ success: true, user });
+    
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
