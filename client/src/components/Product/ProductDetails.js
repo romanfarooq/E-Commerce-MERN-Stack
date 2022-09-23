@@ -5,11 +5,13 @@ import "./ProductDetails.css";
 import MetaData from "../Layout/MetaData";
 import Loader from "../Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductDetails } from "../../Actions/productAction";
+import { clearErrors, getProductDetails } from "../../Actions/productAction";
 import { useAlert } from "react-alert";
-import ReactStars from "react-rating-stars-component";
+import { Rating } from "@material-ui/lab";
+import ReviewCard from "./ReviewCard";
 
 function ProductDetails() {
+  
   const { id } = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector((state) => state.product);
@@ -18,27 +20,26 @@ function ProductDetails() {
   useEffect(() => {
     if (error) {
       alert.error(error);
+      dispatch(clearErrors());
     } else {
       dispatch(getProductDetails(id));
     }
   }, [dispatch, alert, error, id]);
 
   const options = {
-    edit: false,
-    color: "rgba(20, 20, 20, 0.1)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 20 : 25,
+    size: "medium",
     value: product.ratings,
-    isHalf: true,
+    readOnly: true,
+    precision: 0.5,
   };
 
   return (
     <>
-      <MetaData title={`${product.name} -- ECOMMERCE`} />
       {loading ? (
         <Loader />
       ) : (
         <>
+          <MetaData title={`${product.name.toUpperCase()} -- ECOMMERCE`} />
           <div className="ProductDetails">
             <div>
               <Carousel>
@@ -59,7 +60,7 @@ function ProductDetails() {
                 <p>Product # {product._id}</p>
               </div>
               <div className="detailsBlock-2">
-                <ReactStars {...options} />
+                <Rating {...options} />
                 <span className="detailsBlock-2-span">
                   ({product.numOfReviews} Reviews)
                 </span>
@@ -89,6 +90,17 @@ function ProductDetails() {
               <button className="submitReview">Submit Review</button>
             </div>
           </div>
+          <h3 className="reviewsHeading">REVIEWS</h3>
+          {product.reviews && product.reviews[0] ? (
+            <div className="reviews">
+              {product.reviews &&
+                product.reviews.map((review) => (
+                  <ReviewCard key={review._id} review={review} />
+                ))}
+            </div>
+          ) : (
+            <h3 className="noReviews">No Reviews</h3>
+          )}
         </>
       )}
     </>

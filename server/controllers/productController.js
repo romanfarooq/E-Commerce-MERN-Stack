@@ -22,9 +22,9 @@ export const getAllProducts = async (req, res) => {
       req.query.name = { $regex: req.query.keyword, $options: "i" };
     }
 
-    const resultPerPage = Number(req.query.limit) || 5;
+    const resPerPage = Number(req.query.limit) || 6;
     const currentPage = Number(req.query.page) || 1;
-    const skip = resultPerPage * (currentPage - 1);
+    const skip = resPerPage * (currentPage - 1);
 
     const removeFields = ["keyword", "page", "limit"];
     removeFields.forEach((key) => delete req.query[key]);
@@ -32,9 +32,12 @@ export const getAllProducts = async (req, res) => {
     let queryStr = JSON.stringify(req.query);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
 
-    const productCount = await Product.countDocuments();
-    const products = await Product.find(JSON.parse(queryStr))
-      .limit(resultPerPage)
+    const productsCount = await Product.countDocuments();
+    let products = await Product.find(JSON.parse(queryStr))
+    const filteredProductsCount = products.length;
+
+    products = await Product.find(JSON.parse(queryStr))
+      .limit(resPerPage)
       .skip(skip);
 
     if (!products) {
@@ -43,7 +46,7 @@ export const getAllProducts = async (req, res) => {
         .json({ success: false, message: "Products Not Found" });
     }
 
-    res.status(200).json({ success: true, productCount, products });
+    res.status(200).json({ success: true, productsCount, resPerPage, filteredProductsCount, products });
 
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

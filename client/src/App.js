@@ -4,6 +4,8 @@ import Header from "./components/Layout/Header/Header";
 import Footer from "./components/Layout/Footer/Footer";
 import Home from "./components/Home/Home";
 import ProductDetails from "./components/Product/ProductDetails";
+import Products from "./components/Product/Products";
+import Search from "./components/Product/Search";
 
 function App() {
   return (
@@ -12,6 +14,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
     </BrowserRouter>

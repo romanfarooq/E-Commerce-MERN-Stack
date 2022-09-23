@@ -10,6 +10,8 @@ export const productReducer = createReducer(
       state.loading = false;
       state.products = action.payload.products;
       state.productsCount = action.payload.productsCount;
+      state.resPerPage = action.payload.resPerPage;
+      state.filteredProductsCount = action.payload.filteredProductsCount;
     },
     allProductsFail: (state, action) => {
       state.loading = false;

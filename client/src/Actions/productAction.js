@@ -1,11 +1,19 @@
 import axios from "axios";
 const URL = process.env.REACT_APP_SERVER_URL;
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) => async (dispatch) => {
   try {
     dispatch({ type: "allProductsRequest" });
 
-    const { data } = await axios.get(`${URL}/api/product/getAll`);
+    let link;
+
+    if (category) {
+      link = `${URL}/api/product/getAll?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+    } else {
+      link = `${URL}/api/product/getAll?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+    }
+
+    const { data } = await axios.get(link);
 
     dispatch({ type: "allProductsSuccess", payload: data });
   } catch (error) {
