@@ -10,8 +10,8 @@ function Search() {
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {
-      navigate(`/products/${keyword}`);
+    if (keyword) {
+      navigate(`/products/${keyword.trim()}`);
     } else {
       navigate("/products");
     }
