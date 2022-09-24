@@ -4,7 +4,7 @@ import "./Home.css";
 import ProductCard from "./ProductCard";
 import MetaData from "../Layout/MetaData";
 import Loader from "../Loader/Loader";
-import { clearErrors, getProducts } from "../../Actions/productAction";
+import { getProducts } from "../../Actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 
@@ -17,7 +17,6 @@ function Home() {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
     } else {
       dispatch(getProducts());
     }

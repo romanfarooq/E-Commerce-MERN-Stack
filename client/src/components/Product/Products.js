@@ -6,7 +6,7 @@ import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProducts } from "../../Actions/productAction";
+import { getProducts } from "../../Actions/productAction";
 import { useAlert } from "react-alert";
 import { Typography, Slider } from "@material-ui/core/";
 
@@ -52,7 +52,6 @@ function Products() {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
     } else {
       dispatch(getProducts(keyword, currentPage, price, category, ratings));
     }

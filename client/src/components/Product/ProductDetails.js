@@ -5,7 +5,7 @@ import "./ProductDetails.css";
 import MetaData from "../Layout/MetaData";
 import Loader from "../Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProductDetails } from "../../Actions/productAction";
+import { getProductDetails } from "../../Actions/productAction";
 import { useAlert } from "react-alert";
 import { Rating } from "@material-ui/lab";
 import ReviewCard from "./ReviewCard";
@@ -20,7 +20,6 @@ function ProductDetails() {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
     } else {
       dispatch(getProductDetails(id));
     }
@@ -39,7 +38,7 @@ function ProductDetails() {
         <Loader />
       ) : (
         <>
-          <MetaData title={`${product.name.toUpperCase()} -- ECOMMERCE`} />
+          <MetaData title={`${product.name} -- ECOMMERCE`} />
           <div className="ProductDetails">
             <div>
               <Carousel>
