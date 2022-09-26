@@ -56,14 +56,14 @@ function LoginSignUp() {
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
-      const file = e.target.files[0];
-      setAvatar(file);
-
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result);
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
+        }
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(e.target.files[0]);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }

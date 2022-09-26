@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import validator from "validator";
+import { v2 as cloudinary } from "cloudinary";
 import sendToken from "../utils/jwtToken.js";
 import getResetPasswordToken from "../utils/resetToken.js";
 import sendEmail from "../utils/sendEmail.js";
@@ -9,7 +10,7 @@ import sendEmail from "../utils/sendEmail.js";
 export const registerUser = async (req, res) => {
   try {
 
-    const { name, email, password } = req.body;
+    const { name, email, password, avatar } = req.body;
 
     if (password.length < 8) {
       return res.status(400).json({
@@ -18,6 +19,12 @@ export const registerUser = async (req, res) => {
       });
     }
 
+    const myCloud = await cloudinary.uploader.upload(avatar, {
+      folder: "avatars",
+      width: 150, 
+      crop: "scale",
+    });
+
     const salt = await bcrypt.genSalt(10);
     const hashPass = await bcrypt.hash(password, salt);
 
@@ -25,7 +32,7 @@ export const registerUser = async (req, res) => {
       name,
       email,
       password: hashPass,
-      avatar: { public_id: "This is sample id", url: "Profile Pic Url" },
+      avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
     });
 
     sendToken(user, 200, res);
