@@ -47,7 +47,7 @@ In the first terminal
 - Supply the following credentials
 
 ```
-REACT_APP_SERVER_URL=http://localhost:5000
+REACT_APP_SERVER_URL = http://localhost:5000
 ```
 
 In the second terminal
