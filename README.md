@@ -6,6 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 I will later complete it. I am busy with university these days.
 
+## clone or download
+```terminal
+$ git clone https://github.com/romanfarooq/E-Commerce-MERN-Stack.git
+$ npm install
+```
+
 ## project structure
 ```terminal
 .gitignore
@@ -23,7 +29,7 @@ client/
 ### Client
 ```terminal
 $ cd client          // go to client folder
-$ npm i              // npm install packages
+$ npm install        // npm install packages
 $ npm run start      // run it locally
 
 // deployment for client app
@@ -32,9 +38,9 @@ $ npm run build // this will compile the react code using webpack and generate a
 
 ### Server
 ```terminal
-$ cd server   // go to server folder
-$ npm i       // npm install packages
-$ npm run dev // run it locally
+$ cd server         // go to server folder
+$ npm install       // npm install packages
+$ npm run dev       // run it locally
 ```
 
 ## Configuration and Setup
