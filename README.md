@@ -6,39 +6,87 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 I will later complete it. I am busy with university these days.
 
-## Available Scripts
+## project structure
+```terminal
+package.json
+server/
+   package.json
+   .env (create .env file, check [Configuration and Setup session])
+client/
+   package.json
+   .env (create .env file, check [Configuration and Setup session])
+...
+```
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+### Client
+```terminal
+$ cd client          // go to client folder
+$ npm i              // npm install packages
+$ npm run start      // run it locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+// deployment for client app
+$ npm run build // this will compile the react code using webpack and generate a folder called docs in the root level
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Server
+```terminal
+$ cd server   // go to server folder
+$ npm i       // npm install packages
+$ npm run dev // run it locally
+```
 
-### `npm test`
+## Configuration and Setup
+- Open the project in your prefered code editor.
+- Go to terminal -> New terminal (If you are using VS code)
+- Split your terminal into two (run the client on one terminal and the server on the other terminal)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In the first terminal
+- cd client and create a .env file in the root of your client directory.
+- Supply the following credentials
 
-### `npm run build`
+```
+REACT_APP_SERVER_URL=http://localhost:5000
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In the second terminal
+- cd server and create a .env file in the root of your server directory.
+- Supply the following credentials
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+PORT = 5000
+MONGO_URL =
+JWT_SECRET_KEY =
+JWT_EXPIRE_TIME =
+COOKIE_EXPIRE_TIME =
+SMPT_SERVICE =
+SMPT_MAIL =
+SMPT_PASSWORD =
+CLOUD_NAME =
+CLOUDINARY_API_KEY =
+CLOUDINARY_API_SECRET =
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Acknowledgements
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Router](https://reactrouter.com/)
+- [axios](https://axios-http.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [Material UI](https://material-ui.com/)
+- [Node.js](https://nodejs.org/en/)
+- [EXPRESS](https://expressjs.com/)
+- [Mongoose](https://mongoosejs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [nodemailer](https://nodemailer.com/about/)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [nodemon](https://www.npmjs.com/package/nodemon)
+- [cloudinary](https://cloudinary.com/)
