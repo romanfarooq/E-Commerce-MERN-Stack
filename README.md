@@ -8,7 +8,7 @@ I will later complete it. I am busy with university these days.
 
 ## project structure
 ```terminal
-package.json
+.gitignore
 server/
    package.json
    .env (create .env file, check [Configuration and Setup session])
