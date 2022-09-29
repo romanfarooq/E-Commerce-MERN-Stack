@@ -78,7 +78,7 @@ CLOUDINARY_API_SECRET =
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 
-## Acknowledgements
+## Technologies
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
