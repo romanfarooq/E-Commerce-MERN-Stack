@@ -33,7 +33,8 @@ $ npm install        // npm install packages
 $ npm run start      // run it locally
 
 // deployment for client app
-$ npm run build      // this will compile the react code using webpack and generate a folder called docs in the root level
+$ npm run build      /* this will compile the react code using webpack and 
+                        generate a folder called build in the root level */
 ```
 
 ### Server
